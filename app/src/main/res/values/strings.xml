@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MemoDemo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_memo">便签</string>
+    <string name="menu_collect">收藏</string>
+    <string name="menu_settingUp">设置</string>
+    <string name="menu_multipleChoice">多选</string>
+    <string name="searchView_memo">搜索便签</string>
+</resources>

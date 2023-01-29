@@ -7,4 +7,5 @@
     <string name="menu_settingUp">设置</string>
     <string name="menu_multipleChoice">多选</string>
     <string name="searchView_memo">搜索便签</string>
+    <string name="menu_homePage">首页</string>
 </resources>

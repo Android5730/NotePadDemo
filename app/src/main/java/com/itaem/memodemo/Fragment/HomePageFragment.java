@@ -1,14 +1,19 @@
 package com.itaem.memodemo.Fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.itaem.memodemo.R;
+import com.itaem.memodemo.adapter.HomePageAdapter;
+import com.itaem.memodemo.databinding.FragmentHomePageBinding;
+import com.itaem.memodemo.viewModel.HomePageViewModel;
 
 /**
  * 日期：2023.1.16
@@ -55,13 +60,29 @@ public class HomePageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
-
+    // viewModel
+    private HomePageViewModel viewModel;
+    // DataBinding
+    private FragmentHomePageBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(HomePageViewModel.class);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home_page,container,false);
+        // 设置观察者
+        binding.setLifecycleOwner(this);
+        // xml回绑数据
+        binding.setHomePageData(viewModel);
+        initView();
+        return binding.getRoot();
+    }
 
-        return inflater.inflate(R.layout.fragment_home_page, container, false);
+    /**
+     * 对View进行设置适配器和布局管理器等操作
+     */
+    private void initView() {
+        binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rv.setAdapter(new HomePageAdapter(viewModel.queryAll()));
     }
 }

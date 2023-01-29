@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         iniView();
     }
-
     /**
      * 加载碎片
      */

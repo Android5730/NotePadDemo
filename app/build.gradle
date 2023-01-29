@@ -47,5 +47,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // BRAVH
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.10'
-
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment:2.4.1'
+    implementation 'androidx.navigation:navigation-ui:2.4.1'
+    // EventBus
+    implementation("org.greenrobot:eventbus:3.3.1")
 }

@@ -1,14 +1,27 @@
 package com.itaem.memodemo.Fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.itaem.memodemo.R;
+import com.itaem.memodemo.data.NoteEntity;
+import com.itaem.memodemo.databinding.FragmentNoteShowBinding;
+import com.itaem.memodemo.viewModel.NoteShowViewModel;
+
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,11 +69,80 @@ public class NoteShowFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    private NoteShowViewModel viewModel;
+    private FragmentNoteShowBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_note_show, container, false);
+        viewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(NoteShowViewModel.class);
+
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_show, container, false);
+        initSetData();
+        initTouch();
+        return binding.getRoot();
+    }
+
+    /**
+     * 监听事件
+     */
+    private void initTouch() {
+        // 回退至首页
+        binding.toolbarNoteShow.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_noteShowFragment_to_mainFragment);
+            }
+        });
+
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (binding.editNoteContent.getFocusable()== View.FOCUSABLE){
+                binding.toolbarNoteShow.getMenu().getItem(0).setVisible(true);
+                binding.toolbarNoteShow.getMenu().getItem(1).setVisible(false);
+            }else {
+                binding.toolbarNoteShow.getMenu().getItem(0).setVisible(false);
+                binding.toolbarNoteShow.getMenu().getItem(1).setVisible(true);
+            }
+        }*/
+    }
+
+    private void initSetData() {
+
+    }
+
+    /**
+     * toolbar菜单监听
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        CharSequence title = item.getTitle();
+        if (title.equals("收藏")) {
+        } else if (title.equals("添加")) {
+            viewModel.insert(new NoteEntity(binding.editNoteTitle.getText().toString(),
+                    binding.editNoteContent.getText().toString(),
+                    String.valueOf(new Date())));
+            Toast.makeText(getContext(), "添加成功", Toast.LENGTH_LONG).show();
+        }
+        return true;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    //    MenuItem aboutMenuItem = menu.findItem(R.id.menu_collect);
+
+    }
+
+    /**
+     * 注册菜单
+     * @param menu
+     * @param inflater
+     */
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_note_show,menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

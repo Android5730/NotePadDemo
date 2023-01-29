@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar">#FFFFFF</color>
     <color name="toolbar_title">#000000</color>
+
     <color name="searchView">#D3CCCC</color>
+    <color name="btn_noteGroup">#A69A9A</color>
 </resources>

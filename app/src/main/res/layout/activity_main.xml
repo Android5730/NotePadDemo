@@ -6,64 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="@string/text_memo"
-        app:titleTextColor="@color/toolbar_title"
-        app:menu="@menu/menu_toolbar_main"
-        android:background="@color/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        app:queryHint="@string/searchView_memo"
-        app:iconifiedByDefault="false"
-        android:focusable="false"
-        android:background="@drawable/shape_search"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="@id/toolbar"
-        app:layout_constraintEnd_toEndOf="@id/toolbar"/>
-    <!-- 存放Fragment，留余-->
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/container_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintTop_toBottomOf="@id/searchView"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
+        android:id="@+id/fragmentContainerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/menu_bottom"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="8dp"
-        android:src="@drawable/ic_baseline_create_24"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintEnd_toEndOf="parent"/>-->
+        android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_note_toshow"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
-<!--<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>-->

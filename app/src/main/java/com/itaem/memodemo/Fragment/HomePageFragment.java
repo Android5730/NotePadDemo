@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.itaem.memodemo.R;
@@ -75,14 +77,27 @@ public class HomePageFragment extends Fragment {
         // xml回绑数据
         binding.setHomePageData(viewModel);
         initView();
+        initTouch();
         return binding.getRoot();
     }
-
     /**
      * 对View进行设置适配器和布局管理器等操作
      */
     private void initView() {
         binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rv.setAdapter(new HomePageAdapter(viewModel.queryAll()));
+    }
+    /**
+     * 事件监听
+     */
+    private void initTouch() {
+        binding.btnInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController controller = Navigation.findNavController(v);
+                // 传入动作，或者碎片id
+                controller.navigate(R.id.action_mainFragment_to_noteShowFragment);
+            }
+        });
     }
 }

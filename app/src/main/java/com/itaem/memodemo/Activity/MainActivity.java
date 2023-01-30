@@ -1,10 +1,8 @@
 package com.itaem.memodemo.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.itaem.memodemo.Fragment.HomePageFragment;
@@ -19,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
     }
+
     /**
      * 加载碎片
      */

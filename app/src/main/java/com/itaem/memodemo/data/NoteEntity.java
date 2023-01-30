@@ -5,10 +5,10 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 // 实体，即数据库里的表
-@Entity
+@Entity(tableName = "NoteEntity")
 public class NoteEntity {
     // 主键
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     // 笔记标题
     @ColumnInfo(name = "note_title")

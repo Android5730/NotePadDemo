@@ -3,13 +3,13 @@ package com.itaem.memodemo.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -95,6 +95,22 @@ public class NoteShowFragment extends Fragment {
             }
         });
 
+        // toolbar菜单监听
+        binding.toolbarNoteShow.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                CharSequence title = item.getTitle();
+                if (title.equals("收藏")) {
+                    Toast.makeText(getContext(), "标记成功", Toast.LENGTH_LONG).show();
+                } else if (title.equals("添加")) {
+                    viewModel.insert(new NoteEntity(binding.editNoteTitle.getText().toString(),
+                            binding.editNoteContent.getText().toString(),
+                            String.valueOf(new Date())));
+                    Toast.makeText(getContext(), "添加成功", Toast.LENGTH_LONG).show();
+                }
+                return true;
+            }
+        });
 /*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (binding.editNoteContent.getFocusable()== View.FOCUSABLE){
                 binding.toolbarNoteShow.getMenu().getItem(0).setVisible(true);
@@ -110,39 +126,14 @@ public class NoteShowFragment extends Fragment {
 
     }
 
-    /**
-     * toolbar菜单监听
-     * @param item
-     * @return
-     */
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        CharSequence title = item.getTitle();
-        if (title.equals("收藏")) {
-        } else if (title.equals("添加")) {
-            viewModel.insert(new NoteEntity(binding.editNoteTitle.getText().toString(),
-                    binding.editNoteContent.getText().toString(),
-                    String.valueOf(new Date())));
-            Toast.makeText(getContext(), "添加成功", Toast.LENGTH_LONG).show();
-        }
-        return true;
-    }
 
+    /**
+     * 动态更换menu
+     * @param menu
+     */
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
     //    MenuItem aboutMenuItem = menu.findItem(R.id.menu_collect);
-
-    }
-
-    /**
-     * 注册菜单
-     * @param menu
-     * @param inflater
-     */
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_note_show,menu);
-        super.onCreateOptionsMenu(menu, inflater);
     }
 }

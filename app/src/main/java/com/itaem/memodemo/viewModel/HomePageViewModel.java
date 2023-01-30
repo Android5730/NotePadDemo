@@ -15,21 +15,12 @@ import java.util.List;
 // 存放笔记
 public class HomePageViewModel extends AndroidViewModel {
     // 笔记表操作接口实例
-    private NoteDao noteDao;
+    private final NoteDao noteDao;
     public HomePageViewModel(@NonNull Application application) {
         super(application);
         NoteDatabase database = NoteDatabase.getDatabase(application);
         // 获取表
         noteDao = database.getNoteDao();
-        // 查询
-        List<NoteEntity> noteEntities = noteDao.queryAllNote();
-    }
-
-    /**
-     * 新增笔记
-     */
-    public void insert(NoteEntity note){
-        noteDao.insertNote(note);
     }
     /**
      *  删除笔记
@@ -38,7 +29,6 @@ public class HomePageViewModel extends AndroidViewModel {
         note.setId(id);
         noteDao.deleteNote(note);
     }
-
     /**
      * 更新笔记
      * @param id 更新笔记的id

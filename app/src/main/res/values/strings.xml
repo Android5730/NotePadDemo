@@ -8,4 +8,7 @@
     <string name="menu_multipleChoice">多选</string>
     <string name="searchView_memo">搜索便签</string>
     <string name="menu_homePage">首页</string>
+    <string name="menu_popup_delete">删除</string>
+    <string name="menu_popup_encryption">加密</string>
+    <string name="menu_popup_setTop">置顶</string>
 </resources>

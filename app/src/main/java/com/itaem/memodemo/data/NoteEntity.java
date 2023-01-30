@@ -4,9 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 // 实体，即数据库里的表
 @Entity(tableName = "NoteEntity")
-public class NoteEntity {
+public class NoteEntity implements Serializable {
     // 主键
     @PrimaryKey(autoGenerate = true)
     private int id;

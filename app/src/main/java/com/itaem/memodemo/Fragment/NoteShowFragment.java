@@ -75,7 +75,6 @@ public class NoteShowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(NoteShowViewModel.class);
-
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_show, container, false);
         initSetData();
         initTouch();
@@ -91,7 +90,8 @@ public class NoteShowFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_noteShowFragment_to_mainFragment);
+                // 出栈，回退
+                navController.popBackStack();
             }
         });
 
@@ -122,8 +122,15 @@ public class NoteShowFragment extends Fragment {
         }*/
     }
 
+    /**
+     * 编辑功能：获取数据
+     */
     private void initSetData() {
-
+        if (getArguments()!=null){
+            NoteEntity note =(NoteEntity) getArguments().getSerializable("note");
+            binding.editNoteTitle.setText(note.getNote_title());
+            binding.editNoteContent.setText(note.getNote_content());
+        }
     }
 
 

@@ -157,7 +157,7 @@ public class HomePageFragment extends Fragment {
                                             NoteEntity noteEntity = viewModel.getNoteList().getValue().get(position);
                                             viewModel.delete(noteEntity.getId(),noteEntity);
                                             // 更新
-                                            viewModel.getNoteList().getValue();
+                          //                  viewModel.getNoteList().getValue();
                                         }
                                     }).setNegativeButton("取消",null).show().create();
                         }else if (item.getTitle().equals("加密")){

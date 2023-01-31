@@ -1,6 +1,8 @@
 package com.itaem.memodemo.data;
 
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -26,5 +28,5 @@ public interface NoteDao {
     void deleteMoreNote(NoteEntity...notes);
     // 查——显示
     @Query("SELECT * FROM NoteEntity ORDER BY ID DESC")
-    List<NoteEntity> queryAllNote();
+    LiveData<List<NoteEntity>> queryAllNote();
 }

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.itaem.memodemo.adapter.HomePageAdapter;
@@ -19,13 +20,14 @@ public class HomePageViewModel extends AndroidViewModel {
     // 笔记表操作接口实例
     private final NoteDao noteDao;
     // 自动刷新检测数据
-    private MutableLiveData<List<NoteEntity>> noteList;
+    private final LiveData<List<NoteEntity>> noteList;
 
     public HomePageViewModel(@NonNull Application application) {
         super(application);
         NoteDatabase database = NoteDatabase.getDatabase(application);
         // 获取表
         noteDao = database.getNoteDao();
+        noteList = noteDao.queryAllNote();
     }
     /**
      *  删除笔记
@@ -45,18 +47,11 @@ public class HomePageViewModel extends AndroidViewModel {
         // 更新
         noteDao.updateNote(newNote);
     }
-/*    public List<NoteEntity> queryAll(){
-    }*/
-
     /**
      * 显示笔记、动态显示
      * @return
      */
-    public MutableLiveData<List<NoteEntity>> getNoteList() {
-        if (noteList==null){
-            noteList = new MutableLiveData<>();
-        }
-        noteList.setValue(noteDao.queryAllNote());
+    public LiveData<List<NoteEntity>> getNoteList() {
         return noteList;
     }
 }

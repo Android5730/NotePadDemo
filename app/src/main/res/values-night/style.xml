@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- 笔记组别分类显示，应用于noteShow页面MaterialButton按钮-->
+    <style name="ButtonGroup" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">#EAE1E1</item>
+        <item name="android:textColor">#E4400E</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">8sp</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="iconGravity">end</item>
+        <item name="iconSize">10sp</item>
+        <item name="iconTint">#E4400E</item>
+    </style>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="toolbar">#000000</color>
+    <color name="toolbar_title">#F6EBEB</color>
+    <color name="searchView">#3D3838</color>
+    <color name="floBtn">#CEDCDA</color>
+
+</resources>

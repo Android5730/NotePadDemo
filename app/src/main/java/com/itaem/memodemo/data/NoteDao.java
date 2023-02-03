@@ -2,7 +2,6 @@ package com.itaem.memodemo.data;
 
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -29,4 +28,12 @@ public interface NoteDao {
     // 查——显示
     @Query("SELECT * FROM NoteEntity ORDER BY ID DESC")
     LiveData<List<NoteEntity>> queryAllNote();
+
+    // 单个查询
+    @Query("SELECT * From NoteEntity Where id = :patten")
+    NoteEntity queryNote(int patten);
+
+    // 获取置顶集合
+    @Query("SELECT * FROM NoteEntity WHERE note_isHeader='true'")
+    LiveData<List<NoteEntity>> queryTop();
 }

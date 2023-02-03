@@ -1,6 +1,7 @@
 package com.itaem.memodemo.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.itaem.memodemo.R;
+import com.itaem.memodemo.data.Constant;
 import com.itaem.memodemo.data.NoteEntity;
 import com.itaem.memodemo.databinding.FragmentNoteShowBinding;
 import com.itaem.memodemo.viewModel.NoteShowViewModel;
@@ -78,6 +80,7 @@ public class NoteShowFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_note_show, container, false);
         initSetData();
         initTouch();
+        Log.d("TAG", "onCreateView: Show");
         return binding.getRoot();
     }
 
@@ -103,10 +106,18 @@ public class NoteShowFragment extends Fragment {
                 if (title.equals("收藏")) {
                     Toast.makeText(getContext(), "标记成功", Toast.LENGTH_LONG).show();
                 } else if (title.equals("添加")) {
-                    viewModel.insert(new NoteEntity(binding.editNoteTitle.getText().toString(),
-                            binding.editNoteContent.getText().toString(),
-                            String.valueOf(new Date())));
-                    Toast.makeText(getContext(), "添加成功", Toast.LENGTH_LONG).show();
+                    if (getArguments()!=null&&getArguments().get("Update").equals(Constant.NOTE_UPDATE)){
+                        // 更新
+                        viewModel.update(viewModel.getUpdateNote().getId(),new NoteEntity(binding.editNoteTitle.getText().toString()
+                        ,binding.editNoteContent.getText().toString(),String.valueOf(new Date())));
+                        Toast.makeText(getContext(), "更新成功", Toast.LENGTH_LONG).show();
+                    }else {
+                        // 添加
+                        viewModel.insert(new NoteEntity(binding.editNoteTitle.getText().toString(),
+                                binding.editNoteContent.getText().toString(),
+                                String.valueOf(new Date())));
+                        Toast.makeText(getContext(), "添加成功", Toast.LENGTH_LONG).show();
+                    }
                 }
                 return true;
             }
@@ -127,9 +138,9 @@ public class NoteShowFragment extends Fragment {
      */
     private void initSetData() {
         if (getArguments()!=null){
-            NoteEntity note =(NoteEntity) getArguments().getSerializable("note");
-            binding.editNoteTitle.setText(note.getNote_title());
-            binding.editNoteContent.setText(note.getNote_content());
+            viewModel.setUpdateNote((NoteEntity) getArguments().getSerializable("note"));
+            binding.editNoteTitle.setText(viewModel.getUpdateNote().getNote_title());
+            binding.editNoteContent.setText(viewModel.getUpdateNote().getNote_content());
         }
     }
 

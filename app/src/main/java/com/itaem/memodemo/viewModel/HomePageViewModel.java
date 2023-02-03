@@ -1,13 +1,15 @@
 package com.itaem.memodemo.viewModel;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
+import android.view.MenuItem;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.itaem.memodemo.adapter.HomePageAdapter;
 import com.itaem.memodemo.data.NoteDao;
 import com.itaem.memodemo.data.NoteDatabase;
 import com.itaem.memodemo.data.NoteEntity;
@@ -20,7 +22,7 @@ public class HomePageViewModel extends AndroidViewModel {
     // 笔记表操作接口实例
     private final NoteDao noteDao;
     // 自动刷新检测数据
-    private final LiveData<List<NoteEntity>> noteList;
+    private  LiveData<List<NoteEntity>> noteList;
 
     public HomePageViewModel(@NonNull Application application) {
         super(application);
@@ -29,6 +31,7 @@ public class HomePageViewModel extends AndroidViewModel {
         noteDao = database.getNoteDao();
         noteList = noteDao.queryAllNote();
     }
+
     /**
      *  删除笔记
      */
@@ -37,7 +40,7 @@ public class HomePageViewModel extends AndroidViewModel {
         noteDao.deleteNote(note);
     }
     /**
-     * 更新笔记
+     * 置顶笔记
      * @param id 更新笔记的id
      * @param newNote 更新笔记对象
      */
@@ -54,4 +57,6 @@ public class HomePageViewModel extends AndroidViewModel {
     public LiveData<List<NoteEntity>> getNoteList() {
         return noteList;
     }
+
+
 }

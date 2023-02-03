@@ -11,4 +11,5 @@
     <string name="menu_popup_delete">删除</string>
     <string name="menu_popup_encryption">加密</string>
     <string name="menu_popup_setTop">置顶</string>
+    <string name="menu_popup_unTop">取消置顶</string>
 </resources>

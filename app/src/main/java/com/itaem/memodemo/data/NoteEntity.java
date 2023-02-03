@@ -4,11 +4,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.chad.library.adapter.base.entity.JSectionEntity;
+import com.chad.library.adapter.base.entity.SectionEntity;
+
 import java.io.Serializable;
 
 // 实体，即数据库里的表
 @Entity(tableName = "NoteEntity")
-public class NoteEntity implements Serializable {
+public class NoteEntity extends JSectionEntity implements Serializable {
     // 主键
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -22,6 +25,9 @@ public class NoteEntity implements Serializable {
     // 笔记发布时间
     @ColumnInfo(name = "note_time")
     private String note_time;
+    // 笔记是否置顶
+    @ColumnInfo(name = "note_isHeader")
+    private boolean isHeader;
 
     public NoteEntity(String note_title, String note_content, String note_time) {
         this.note_title = note_title;
@@ -59,5 +65,16 @@ public class NoteEntity implements Serializable {
 
     public void setNote_time(String note_time) {
         this.note_time = note_time;
+    }
+
+
+
+    public void setHeader(boolean header) {
+        isHeader = header;
+    }
+
+    @Override
+    public boolean isHeader() {
+        return isHeader;
     }
 }

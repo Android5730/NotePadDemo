@@ -26,6 +26,7 @@ public class HomePageAdapter extends BaseQuickAdapter<NoteEntity, BaseViewHolder
             title = item.getNote_title();
         else
             title = item.getNote_content();
+
         baseViewHolder.setText(R.id.item_content,title)
                 .setText(R.id.item_time,item.getNote_time());
     }

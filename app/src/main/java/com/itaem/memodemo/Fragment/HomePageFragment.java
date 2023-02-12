@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -110,37 +111,37 @@ public class HomePageFragment extends Fragment {
         binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomePageAdapter(list);
         adapter.setDiffCallback(new DiffDemoCallback());
-
+        binding.rv.setAdapter(adapter);
         // 添加自动检测数据更新
         viewModel.getNoteList().observe(getViewLifecycleOwner(), new Observer<List<NoteEntity>>() {
             @Override
             public void onChanged(List<NoteEntity> noteEntities) {
                 if (noteEntities!=null){
-                    list.addAll(initIsTop(noteEntities));
                     // 当数据加载完毕在获取监听事件
-                    adapter.setDiffNewData(list);
-                    binding.rv.setAdapter(adapter);
-
+                    adapter.setDiffNewData(initIsTop(noteEntities));
                 }
             }
         });
     }
     // 头部归位
     private List<NoteEntity> initIsTop(List<NoteEntity> noteEntities){
-        if (list!=null){
-            list.clear();
-        }
         List<NoteEntity> head = new ArrayList<>();
         for (int i =0 ;i<noteEntities.size();i++){
             NoteEntity note = noteEntities.get(i);
             if (note.isHeader()){
                 head.add(note);
                 noteEntities.remove(note);
+                View headView = LayoutInflater.from(getContext()).inflate(R.layout.item_home_page, null);
+                AppCompatTextView content = (AppCompatTextView) headView.findViewById(R.id.item_content);
+                AppCompatTextView time = (AppCompatTextView) headView.findViewById(R.id.item_time);
+                content.setText(note.getNote_content());
+                time.setText(note.getNote_time());
+                adapter.addHeaderView(headView);
             }
         }
-        for (int i =0 ;i<head.size();i++){
+/*        for (int i =0 ;i<head.size();i++){
             noteEntities.add(i,head.get(i));
-        }
+        }*/
         list = noteEntities;
         return noteEntities;
     }
@@ -175,7 +176,7 @@ public class HomePageFragment extends Fragment {
             public boolean onItemLongClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 // 悬浮菜单
                 if(!list.get(position).isHeader()){
-                    PopupMenu menu = new PopupMenu(getActivity(),binding.rv.getChildAt(position));
+                    PopupMenu menu = new PopupMenu(getActivity(),view);
                     menu.getMenuInflater().inflate(R.menu.menu_item_popup,menu.getMenu());
                     menu.show();
                     menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

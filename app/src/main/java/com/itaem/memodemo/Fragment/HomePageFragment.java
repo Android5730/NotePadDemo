@@ -235,6 +235,5 @@ public class HomePageFragment extends Fragment {
                 return true;
             }
         });
-
     }
 }

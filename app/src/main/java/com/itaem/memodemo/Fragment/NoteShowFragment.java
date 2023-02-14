@@ -21,6 +21,7 @@ import com.itaem.memodemo.R;
 import com.itaem.memodemo.data.Constant;
 import com.itaem.memodemo.data.NoteEntity;
 import com.itaem.memodemo.databinding.FragmentNoteShowBinding;
+import com.itaem.memodemo.utility.EditMemory;
 import com.itaem.memodemo.viewModel.NoteShowViewModel;
 
 import java.util.Date;
@@ -73,6 +74,7 @@ public class NoteShowFragment extends Fragment {
     }
     private NoteShowViewModel viewModel;
     private FragmentNoteShowBinding binding;
+    private EditMemory editMemory;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,6 +94,7 @@ public class NoteShowFragment extends Fragment {
         binding.toolbarNoteShow.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 NavController navController = Navigation.findNavController(v);
                 // 出栈，回退
                 navController.popBackStack();
@@ -132,11 +135,11 @@ public class NoteShowFragment extends Fragment {
             }
         }*/
     }
-
     /**
      * 编辑功能：获取数据
      */
     private void initSetData() {
+        editMemory = new EditMemory(binding.editNoteContent);
         if (getArguments()!=null){
             viewModel.setUpdateNote((NoteEntity) getArguments().getSerializable("note"));
             binding.editNoteTitle.setText(viewModel.getUpdateNote().getNote_title());

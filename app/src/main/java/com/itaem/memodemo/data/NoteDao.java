@@ -32,7 +32,10 @@ public interface NoteDao {
     // 单个查询
     @Query("SELECT * From NoteEntity Where id = :patten")
     NoteEntity queryNote(int patten);
-
+    // 根据patten模糊查询
+    // LIKE 模糊查询
+    @Query("SELECT * FROM NoteEntity WHERE note_content LIKE :patten ORDER BY ID DESC")
+    LiveData<List<NoteEntity>> findWordWithPatten(String patten);
     // 获取置顶集合
     @Query("SELECT * FROM NoteEntity WHERE note_isHeader='true'")
     LiveData<List<NoteEntity>> queryTop();

@@ -52,6 +52,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:hint="内容"
+            android:textColorLink="@color/purple_500"
+            android:linksClickable="true"
             android:textStyle="bold"
             android:gravity="top"
             android:background="@color/toolbar"
@@ -60,5 +62,6 @@
             app:layout_constraintEnd_toEndOf="@id/edit_noteTitle"
             app:layout_constraintTop_toBottomOf="@id/btn_noteGroup"
             app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

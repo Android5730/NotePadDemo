@@ -58,5 +58,8 @@ public class HomePageViewModel extends AndroidViewModel {
         return noteList;
     }
 
+    public LiveData<List<NoteEntity>> findNoteList(String query) {
+        return noteDao.findWordWithPatten(query);
+    }
 
 }

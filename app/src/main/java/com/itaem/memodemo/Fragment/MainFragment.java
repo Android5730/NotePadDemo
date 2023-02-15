@@ -1,5 +1,6 @@
 package com.itaem.memodemo.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -50,6 +52,8 @@ public class MainFragment extends Fragment {
 
 
     private void initView(){
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.searchView.getWindowToken(), 0);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         binding.viewPager2.setAdapter(viewPagerAdapter);
         binding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,16 +70,20 @@ public class MainFragment extends Fragment {
         });
     }
     private void initTouch() {
+
         // 焦点集中
         binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus){
+
                     NavController controller = Navigation.findNavController(v);
                     controller.navigate(R.id.action_mainFragment_to_searchFragment);
                 }
             }
         });
+
+
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
